@@ -16,8 +16,31 @@ export default class App {
     // Get page instance
     const page = route();
 
-    // masukkan html yang di render sesuai routingnya
-    this.#content.innerHTML = await page.render();
-    await page.afterRender();
+    // Alternative DOM update for browsers that do not support view transition
+    if (!document.startViewTransition) {
+      this.#content.innerHTML = await page.render();
+      await page.afterRender();
+
+      return;
+    }
+
+    // Update DOM with view transition
+    const transition = document.startViewTransition(async () => {
+      this.#content.innerHTML = await page.render();
+      await page.afterRender();
+    });
+    console.log(transition);
+
+    transition.updateCallbackDone.then(() => {
+      console.log("callback transisi telah diekekusi.");
+    });
+
+    transition.ready.then(() => {
+      console.log("view transisi telah siap.");
+    });
+
+    transition.finished.then(() => {
+      console.log("view transisi telah selesai.");
+    });
   }
 }
