@@ -1,4 +1,4 @@
-import sleep from "../../utils";
+import sleep from "../../utils.js";
 class HomePresenter {
   #model;
   #view;
@@ -11,9 +11,8 @@ class HomePresenter {
   showCats = async () => {
     this.#view.showLoading();
     const cats = await this.#model.getAllCats();
-    await sleep();
+    await sleep(5000);
     this.#view.showCats(cats);
-
     this.#view.hideLoading();
   };
 }

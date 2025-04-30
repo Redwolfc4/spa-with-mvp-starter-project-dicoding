@@ -39,6 +39,7 @@ class HomePage {
   };
 
   showLoading = () => {
+    console.log("jalan");
     document.getElementById("loading-container").innerHTML = `
             <div class="loader"></div>
         `;

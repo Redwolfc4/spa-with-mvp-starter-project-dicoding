@@ -1,4 +1,7 @@
 import { parseActivePathName } from "../routes/url-parser.js";
+import CatDetailPresenter from "../pages/cat-detail-presenter.js";
+import CatsLocal from "../data/local/cats.js";
+import { generateCatDetailTemplate } from "../templates.js";
 
 class CatDetailPage {
   #presenter;
@@ -26,6 +29,16 @@ class CatDetailPage {
   showCat = (cat) => {
     const html = generateCatDetailTemplate(cat);
     document.getElementById("cat-detail").innerHTML = html;
+  };
+
+  showLoading = () => {
+    document.getElementById("loading-container").innerHTML = `
+            <div class="loader"></div>
+        `;
+  };
+
+  hideLoading = () => {
+    document.getElementById("loading-container").innerHTML = "";
   };
 }
 
